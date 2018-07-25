@@ -24,7 +24,7 @@ module.exports = {
     "indent": ["off", 4, { "SwitchCase": 1 }],
     "quotes": ["off", "double"],
     "semi": ["error", "always"],
-    "no-console": ["error"],
+    "no-console": ["off"],
     "no-empty": 2,
     "no-eq-null": 2,
     "no-new": 0,

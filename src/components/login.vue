@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<div>login works</div>
-		<i-button @click="show">Click me!</i-button>
-		<Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
-		<Table :columns="columns1" :data="data1"></Table>
+		<input type="text" class="username" v-model="params.username">
+		<input type="password" class="password" v-model="params.password">
+		<button @click="login(params)">login</button>
+		<Button @click="open(true)">Open notice(only title)</Button>
 	</div>
 </template>
 
@@ -13,60 +13,27 @@ export default {
     name: "login",
 	data () {
     	return {
-			visible: false,
-			columns1: [
-				{
-					title: 'Name',
-					key: 'name'
-				},
-				{
-					title: 'Age',
-					key: 'age'
-				},
-				{
-					title: 'Address',
-					key: 'address'
-				}
-			],
-			data1: [
-				{
-					name: 'John Brown',
-					age: 18,
-					address: 'New York No. 1 Lake Park',
-					date: '2016-10-03'
-				},
-				{
-					name: 'Jim Green',
-					age: 24,
-					address: 'London No. 1 Lake Park',
-					date: '2016-10-01'
-				},
-				{
-					name: 'Joe Black',
-					age: 30,
-					address: 'Sydney No. 1 Lake Park',
-					date: '2016-10-02'
-				},
-				{
-					name: 'Jon Snow',
-					age: 26,
-					address: 'Ottawa No. 2 Lake Park',
-					date: '2016-10-04'
-				}
-			]
+			params: {
+				username:"",
+				password:"",
+			},
+
 		}
 	},
 	methods: {
-		show: function () {
-			this.visible = true;
+		login: function (params) {
+			loginService.login(params).then(res => {
+				if(res){
+					console.log(res);
+				}
+			});
+		},
+		open (nodesc) {
+			this.$Notice.open({
+				title: 'Notification title',
+				desc: nodesc ? '' : 'Here is the notification description. Here is the notification description. '
+			});
 		}
-	},
-	created () {
-		loginService.login({username:"web",password:"web"}).then(res => {
-			if (res.status === 200) {
-				console.log(res);
-			}
-		});
 	}
 };
 </script>
